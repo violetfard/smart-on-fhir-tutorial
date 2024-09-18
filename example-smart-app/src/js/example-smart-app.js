@@ -24,10 +24,15 @@
                       }
                     }
                   });
+        var alg = smart.patient.api.fetchAll({
+                    type: 'AllergyIntolerance',
+                    query: {
+                          clinical-status = 'active'
+                    }
+                  });
+        $.when(pt, obv,alg).fail(onError);
 
-        $.when(pt, obv).fail(onError);
-
-        $.when(pt, obv).done(function(patient, obv) {
+        $.when(pt, obv, alg).done(function(patient, obv, alg) {
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
@@ -64,6 +69,7 @@
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
           p.bdtmp = getQuantityValueAndUnit(bdtmp[0]);
+          p.alg = getQuantityValueAndUnit(alg[0]);
           ret.resolve(p);
         });
       } else {
@@ -87,7 +93,8 @@
       diastolicbp: {value: ''},
       ldl: {value: ''},
       hdl: {value: ''},
-      bdtmp: {value: ''}
+      bdtmp: {value: ''},
+      alg: {value: ''}
     };
   }
 
@@ -132,6 +139,7 @@
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
     $('#bdtmp').html(p.bdtmp);
+    $('#alg').html(p.alg);
   };
 
 })(window);
