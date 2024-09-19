@@ -161,7 +161,7 @@
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
     $('#bdtmp').html(p.bdtmp);
-    $('#alg').html(p.alg);
+	$('#allergyIntolerance').html(p.allergies);
   };
 
 })(window);
