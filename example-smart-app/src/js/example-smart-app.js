@@ -40,7 +40,7 @@
                   });
         $.when(pt, obv,alg).fail(onError);
 
-        $.when(pt, obv, alg).done(function(patient, obv, alg) {
+        $.when(pt, obv, alg).done(function(patient, obv, allergies) {
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
@@ -58,7 +58,21 @@
           var hdl = byCodes('2085-9');
           var ldl = byCodes('2089-1');
           var bdtmp = byCodes('8310-5');
-
+		  var allergyTable = "<table>";
+		  var allergyLen = allergies.length;
+		  for (var i=0;i<allergyLen;i++){
+			  var reactionStr = [];
+			  if(allergies[i].reaction !== undefined) {
+				  for(var j=0,jLen=allergies[i].reaction.length;j<jLen;j++) {
+					  reactionStr.push(allergies[i].reaction[j].manifestation[0].text);
+				  }
+			  }
+			  allergyTable += "<tr><td>"+allergies[i].code.text+"</td><td>"+reactionStr.join(", ")+"</td></tr>";
+		  }
+		  if (allergyLen === 0) {
+			  allergyTable += "<tr><td>No Allergies Found</td></tr>";
+		  }
+		  allergyTable += "</table>";
           var p = defaultPatient();
           p.birthdate = patient.birthDate;
           p.gender = gender;
