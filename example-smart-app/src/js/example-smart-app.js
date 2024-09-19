@@ -116,7 +116,7 @@
       ldl: {value: ''},
       hdl: {value: ''},
       bdtmp: {value: ''},
-      alg: {value: ''}
+	  allergies: {value: ''}
     };
   }
 
