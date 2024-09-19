@@ -24,11 +24,19 @@
                       }
                     }
                   });
-        var alg = smart.patient.api.fetchAll({
-                    type: 'AllergyIntolerance',
-                    query: {'clinical-status': 'active'        //            status = active
-                      code: {'allergy','intolerance'
-                      }
+
+ //       var alg = smart.patient.api.fetchAll({
+ //                   type: 'AllergyIntolerance',
+ //                   query: {'clinical-status': 'active'        //            status = active
+ //                     code: {'allergy','intolerance'
+ //                     }
+//                  });
+
+                var alg = smart.patient.api.fetchAll({
+                    "type": 'AllergyIntolerance',
+                    "query": {
+                      "clinical-status": 'active'
+                    }
                   });
         $.when(pt, obv,alg).fail(onError);
 
